@@ -1,0 +1,11 @@
+version: '3.3'
+services:
+  jenkins:
+    image: 'jenkins/jenkins'
+    restart: always
+    ports:
+      - '8080:8080'
+      - '5000:5000'
+    volumes:
+      - '${VOLUME_PATH}jenkins:/var/jenkins_home'
+      
