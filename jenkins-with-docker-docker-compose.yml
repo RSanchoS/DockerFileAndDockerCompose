@@ -1,0 +1,12 @@
+version: '3.3'
+services:
+  jenkins:
+    build:
+     context: ./Dockerfile
+     dockerfile: jenkins_with_docker.Dockerfile
+    restart: always
+    ports:
+      - '8080:8080'
+      - '5000:5000'
+    volumes:
+      - '${VOLUME_PATH}/jenkins:/var/jenkins_home'
