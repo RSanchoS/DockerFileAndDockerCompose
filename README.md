@@ -16,3 +16,9 @@ To build image
 To launch image
 
 `docker run -p 8080:8080 -p 5000:5000 jenkinswithdocker:0.1`
+
+### Tomcat
+
+Tomcat image with move /webapps.dist files move to /webapps
+
+`docker build -t tomcat:0.1 -f tomcat.Dockerfile . `
