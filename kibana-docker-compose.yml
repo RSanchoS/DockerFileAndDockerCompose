@@ -1,0 +1,6 @@
+version: '3.3'
+services:
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.6.1
+    environment:
+      ELASTICSEARCH_HOSTS: ${ELASTICSEARCH_HOSTS}
