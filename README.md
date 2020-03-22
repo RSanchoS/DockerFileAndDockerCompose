@@ -4,9 +4,14 @@ DockerFile and Docker Compose examples
 ## .env File
 
 VOLUME_PATH = Path to local file 
+
 POSTGRES_PASS= Password for Postgres database
+
 ELASTICSEARCH_HOSTS= Url elastic search instance
+
 ELASTIC_STACK_NETWORK= Docker network for elastic stack
+
+ELASTIC_STACK_VERSION= Version Elastic Stack
 
 
 ## DockerCompose

@@ -6,4 +6,4 @@ services:
     ports:
       - '8081:8081'
     volumes:
-      - '${VOLUME_PATH}/Apps/nexus3:/nexus-data'
+      - '${VOLUME_PATH}/nexus3:/nexus-data'
