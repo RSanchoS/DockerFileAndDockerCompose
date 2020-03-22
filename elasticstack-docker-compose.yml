@@ -1,0 +1,37 @@
+version: '3.3'
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_STACK_VERSION}
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - '${VOLUME_PATH}/elasticsearch:/usr/share/elasticsearch/data'
+    ports:
+      - '9200:9200'
+    networks: 
+      - ${ELASTIC_STACK_NETWORK}
+  kibana:
+    image: docker.elastic.co/kibana/kibana:${ELASTIC_STACK_VERSION}
+    environment:
+      ELASTICSEARCH_URL: ${ELASTICSEARCH_HOSTS}
+      ELASTICSEARCH_HOSTS: ${ELASTICSEARCH_HOSTS}
+      SERVER_HOST: kibana
+    ports:
+      - '5601:5601'
+    networks: 
+      - ${ELASTIC_STACK_NETWORK}
+    depends_on:
+      - elasticsearch
+  logstash:
+    image: docker.elastic.co/logstash/logstash:${ELASTIC_STACK_VERSION}
+    volumes: 
+     - '${VOLUME_PATH}/logstash:/usr/share/logstash/config/'
+    networks: 
+     - ${ELASTIC_STACK_NETWORK}
+    depends_on:
+     - elasticsearch
+
+networks:
+  elasticstack:
+    driver: bridge
