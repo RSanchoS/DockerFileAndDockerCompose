@@ -22,7 +22,7 @@ Docker compose with Elastic search and Kibana
 
 To enter in Kibana
 
-http://kibana:5601
+http://localhost:5601
 
 ## Dockerfiles
 
@@ -43,3 +43,10 @@ To launch image
 Tomcat image with move /webapps.dist files move to /webapps
 
 `docker build -t tomcat:0.1 -f tomcat.Dockerfile . `
+
+
+## Utils
+
+### aws-s3.conf
+
+Config file for connect to S3 bucket in AWS.
