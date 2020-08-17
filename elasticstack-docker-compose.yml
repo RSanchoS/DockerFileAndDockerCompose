@@ -26,7 +26,7 @@ services:
   logstash:
     image: docker.elastic.co/logstash/logstash:${ELASTIC_STACK_VERSION}
     volumes: 
-     - '${VOLUME_PATH}/logstash:/usr/share/logstash/config/'
+     - '${VOLUME_PATH}/logstash:/usr/share/logstash/pipeline/'
     networks: 
      - ${ELASTIC_STACK_NETWORK}
     depends_on:
