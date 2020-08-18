@@ -12,11 +12,13 @@ NAME_KAFKA_CONTAINER="apache-kafka_kafka-1_1"
 NAME_TOPIC="test-topic"
 NAME_TEST_MESSAGE="testMessage.txt"
 
+BOOTSTRAP_SERVER="localhost:9092"
+
 createTestTopic(){
 
     echo "\n${BLUE}[ACTION]${NO_COLOR} Creating Test topic "
 
-    cmd="docker container exec -it $NAME_KAFKA_CONTAINER kafka-topics --create --topic $NAME_TOPIC   --bootstrap-server localhost:9092"
+    cmd="docker container exec -it $NAME_KAFKA_CONTAINER kafka-topics --create --topic $NAME_TOPIC   --bootstrap-server $BOOTSTRAP_SERVER"
     
     $cmd
 
@@ -28,7 +30,7 @@ showAllTopics(){
 
     echo "\n${BLUE}[ACTION]${NO_COLOR} Show all topics"
 
-    cmd="docker container exec -it $NAME_KAFKA_CONTAINER kafka-topics --list --bootstrap-server localhost:9092"
+    cmd="docker container exec -it $NAME_KAFKA_CONTAINER kafka-topics --list --bootstrap-server $BOOTSTRAP_SERVER"
     
     $cmd
 
@@ -54,7 +56,7 @@ sendMessage(){
 
     echo "\n${BLUE}[ACTION]${NO_COLOR} Send message to topic"
 
-    docker container exec -it $NAME_KAFKA_CONTAINER /bin/bash -c 'cat home/'$NAME_TEST_MESSAGE' | kafka-console-producer --topic $NAME_TOPIC --bootstrap-server localhost:9092'
+    docker container exec -it $NAME_KAFKA_CONTAINER /bin/bash -c 'cat home/'$NAME_TEST_MESSAGE' | kafka-console-producer --topic '$NAME_TOPIC' --bootstrap-server '$BOOTSTRAP_SERVER' '
 
     sleep 10
 
@@ -65,7 +67,9 @@ recieveMessage(){
     
     echo "\n${BLUE}[ACTION]${NO_COLOR} Receiving message for topic '$NAME_TOPIC'"
 
-    cmd="docker container exec -it $NAME_KAFKA_CONTAINER kafka-console-producer --topic $NAME_TOPIC --bootstrap-server localhost:9092"
+    sleep 10
+
+    cmd="docker container exec -it $NAME_KAFKA_CONTAINER kafka-console-consumer --topic $NAME_TOPIC --from-beginning --bootstrap-server $BOOTSTRAP_SERVER -timeout-ms 10000"
 
     $cmd
 
@@ -76,7 +80,7 @@ deleteTopics(){
 
     echo "\n${BLUE}[ACTION]${NO_COLOR} Delete Topics used for test"
 
-    cmd="docker container exec -it $NAME_KAFKA_CONTAINER kafka-topics --delete --topic $NAME_TOPIC --bootstrap-server localhost:9092"
+    cmd="docker container exec -it $NAME_KAFKA_CONTAINER kafka-topics --delete --topic $NAME_TOPIC --bootstrap-server $BOOTSTRAP_SERVER"
 
     $cmd
 
